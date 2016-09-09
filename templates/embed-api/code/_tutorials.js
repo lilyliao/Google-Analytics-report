@@ -27,70 +27,60 @@ gapi.analytics.ready(function() {
     container: 'view-selector-2-container'
   });
 
-  // Render both view selectors to the page.
-  viewSelector1.execute();
-  viewSelector2.execute();
 
-
-  /**
-   * Create the first DataChart for top countries over the past 30 days.
-   * It will be rendered inside an element with the id "chart-1-container".
-   */
   var dataChart1 = new gapi.analytics.googleCharts.DataChart({
     query: {
+      ids: 'ga:45206091',
       metrics: 'ga:sessions',
-      dimensions: 'ga:country',
-      'start-date': '30daysAgo',
-      'end-date': 'yesterday',
-      'max-results': 6,
-      sort: '-ga:sessions'
-    },
-    chart: {
-      container: 'chart-1-container',
-      type: 'PIE',
-      options: {
-        width: '100%',
-        pieHole: 4/9
-      }
-    }
-  });
-
-
-  /**
-   * Create the second DataChart for top countries over the past 30 days.
-   * It will be rendered inside an element with the id "chart-2-container".
-   */
-  var dataChart2 = new gapi.analytics.googleCharts.DataChart({
-    query: {
-      metrics: 'ga:sessions',
-      dimensions: 'ga:country',
-      'start-date': '30daysAgo',
-      'end-date': 'yesterday',
-      'max-results': 6,
-      sort: '-ga:sessions'
+      dimensions: 'ga:week',
+      'start-date': '2016-01-03',
+      'end-date': 'today',
+      filters: 'ga:pagePathLevel2=@Hadoop-tutorial'
     },
     chart: {
       container: 'chart-2-container',
-      type: 'PIE',
+      type: 'COLUMN',
       options: {
-        width: '100%',
-        pieHole: 4/9
+        width: '100%'
       }
     }
   });
-
+  var dataChart2 = new gapi.analytics.googleCharts.DataChart({
+    query: {
+      ids: 'ga:45206091',
+      metrics: 'ga:uniquePageviews',
+      dimensions: 'ga:pageTitle',
+      'start-date': '7daysAgo',
+      'end-date': 'today',
+      'max-results': 200,
+      filters: 'ga:pagePathLevel2=@Hadoop-tutorial',
+      sort: '-ga:uniquePageviews'
+    },
+    chart: {
+      container: 'chart-1-container',
+      type: 'BAR',
+      options: {
+        width: '100%',
+        height: '3000'
+      }
+    }
+  });
+  // Render both view selectors to the page.
+  dataChart1.execute();
+  dataChart2.execute();
   /**
-   * Update the first dataChart when the first view selecter is changed.
+   * Update the second dataChart when the second view selecter is changed.
    */
   viewSelector1.on('change', function(ids) {
     dataChart1.set({query: {ids: ids}}).execute();
   });
-
   /**
-   * Update the second dataChart when the second view selecter is changed.
+   * Update the first dataChart when the first view selecter is changed.
    */
-  viewSelector2.on('change', function(ids) {
+  viewSelector2.on('success', function(ids) {
     dataChart2.set({query: {ids: ids}}).execute();
   });
+
+
 
 });

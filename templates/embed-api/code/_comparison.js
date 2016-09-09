@@ -65,10 +65,8 @@ gapi.analytics.ready(function() {
     var title = document.getElementById('view-name');
     title.innerHTML = data.property.name + ' (' + data.view.name + ')';
 
-    // Start tracking active users for this view.
     activeUsers.set(data).execute();
 
-    // Render all the of charts for this view.
     renderWeekOverWeekChart(data.ids);
     renderYearOverYearChart(data.ids);
     renderTopBrowsersChart(data.ids);

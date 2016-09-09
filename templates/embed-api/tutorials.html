@@ -1,0 +1,38 @@
+{% extends 'embed-api/demo.html' %}
+
+{% block content %}
+
+
+<ul class="FlexGrid">
+  <li class="FlexGrid-item">
+    <div class="Dashboard Dashboard--full">
+      <header class="Titles">
+        <h3 class="Titles-main">Tutorials: all weeks from the start of the year</h3>
+        <div class="Titles-sub"></div>
+      </header>
+      <div id="chart-2-container"></div>
+      <div class="ViewSelector" id="view-selector-2-container"></div>
+    </div>
+  </li>
+  <li class="FlexGrid-item">
+    <div class="Dashboard Dashboard--full">
+      <header class="Titles">
+        <h3 class="Titles-main">Tutorials:each week</h3>
+        <div class="Titles-sub">Last week</div>
+      </header>
+      <div id="chart-1-container"></div>
+      <div class="ViewSelector" id="view-selector-1-container"></div>
+    </div>
+  </li>
+</ul>
+
+
+
+{% endblock %}
+
+{% block foot_scripts %}
+{{ super() }}
+<script>
+{% include 'embed-api/code/_tutorials.js' %}
+</script>
+{% endblock %}
